@@ -25,16 +25,6 @@ PACKAGE_PATH="$(pwd)/../../tmp/package"
 
 env PACKAGE_OUTPUT_PATH="$PACKAGE_PATH" ./scripts/build/package.sh
 
-echo "//registry.npmjs.org/:_authToken=$NPM_KEY" > ~/.npmrc
-cd "$PACKAGE_PATH" || exit 1
-if [ "$IS_PRE_RELEASE" = true ]
-then
-  npm publish --tag next
-else
-  npm publish
-fi
-cd - || exit
-
 ./scripts/build/docs.js
 ./scripts/release/updateFirebase.js
 # TODO: Reanimate it
